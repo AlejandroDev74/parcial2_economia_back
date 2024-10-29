@@ -2,21 +2,31 @@ import { z } from "zod";
 
 export const registerSchema = z.object({
   username: z.string({
-    required_error: "Username is required",
+    required_error: "Diligencie nombre de usuario!",
   }),
-  email: z
-    .string({
-      required_error: "Email is required",
+  fechanac: z.string({
+      required_error: "Diligencie fecha de nacimiento!",
+    }),
+  identificacion: z.string({
+      required_error: "Diligencie identificación!",
+    }),
+  email: z.string({
+      required_error: "Diligencie correo electrónico!",
     })
     .email({
-      message: "Email is not valid",
+      message: "Correo electrónico no válido!",
     }),
-  password: z
-    .string({
-      required_error: "Password is required",
+  celular: z.string({
+      required_error: "Diligencie celular!",
+    }),
+  password: z.string({
+      required_error: "Diligencie contgraseña!",
     })
     .min(6, {
-      message: "Password must be at least 6 characters",
+      message: "La contraseña debe tener al menos 6 carácteres!",
+    }),
+    perfil: z.string({
+      required_error: "Perfil es requerido!",
     }),
 });
 

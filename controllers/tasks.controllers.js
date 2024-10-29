@@ -2,7 +2,7 @@ import Task from "../models/task.model.js";
 
 export const getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find({ user : req.user.id }).populate("user");
+    const tasks = await Task.find().populate("user");
     res.json(tasks);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -11,11 +11,18 @@ export const getTasks = async (req, res) => {
 
 export const createTask = async (req, res) => {
   try {
-    const { title, description, date } = req.body;
+    const { codigo, estado } = req.body;
+
+    //Verificaciones de las variables del formulario
+    const codigoFound = await Task.findOne({ codigo });
+    if (codigoFound)
+      return res.status(400).json({
+        message: ["Este código ya ha sido registrado!"],
+      });
+
     const newTask = new Task({
-      title,
-      description,
-      date,
+      codigo,
+      estado,
       user: req.user.id,
     });
     await newTask.save();
